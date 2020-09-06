@@ -38,17 +38,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 function displayGlobalStats(globalData){
   const newConfirmed = document.querySelector("#newConfirmed");
-  newConfirmed.innerText = formatNum(globalData.NewConfirmed);
+  newConfirmed.value = formatNum(globalData.NewConfirmed);
   const totalConfirmed = document.querySelector("#totalConfirmed");
-  totalConfirmed.innerText =formatNum( globalData.TotalConfirmed);
+  totalConfirmed.value =formatNum( globalData.TotalConfirmed);
   const newDeaths = document.querySelector("#newDeaths");
-  newDeaths.innerText = formatNum(globalData.NewDeaths);
+  newDeaths.value = formatNum(globalData.NewDeaths);
   const totalDeaths = document.querySelector("#totalDeaths");
-  totalDeaths.innerText = formatNum(globalData.TotalDeaths);
+  totalDeaths.value = formatNum(globalData.TotalDeaths);
   const newRecovered = document.querySelector("#newRecovered");
-  newRecovered.innerText = formatNum(globalData.NewRecovered);
+  newRecovered.value = formatNum(globalData.NewRecovered);
   const totalRecovered = document.querySelector("#totalRecovered");
-  totalRecovered.innerText =formatNum( globalData.TotalRecovered);
+  totalRecovered.value =formatNum( globalData.TotalRecovered);
 }
 function refreshCountryData(countryData, sortBy) {
   let sortedCountryData = countryData.sort((f) => sortBy);

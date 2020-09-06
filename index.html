@@ -29,56 +29,78 @@
 </head>
 
 <body>
-    <div id="root" style="background-color: #edf2f9;">
+    <div id="root" style="background-color: #edf2f9;min-width: 900px;">
         <div class="card">
             <div class="card-header">
                 <h3>World Covid Status</h1>
                     <small>                
                         <span class="text-muted">Created with 💗 by Anil Khandei</span>
                     </small>
-                    <small class="float-right">
-                        <p><span>Wear 😷 stop the spread!</span></p>
-                    </small>
+
             </div>
             <div class="card-body">
-                <div id="globalStats" class="card shadow">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html?s_cid=bb-coronavirus-2019-ncov-NCIRD" title="image of SARS-CoV-2">
-                                <img src="http://www.cdc.gov/coronavirus/2019-ncov/images/Coronavirus-badge-300.png" style="width:300px; height:250px; border:0px;" alt="image of Coronavirus Disease 2019 (COVID-19)"/>
-                            </a>
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-lg-9">
+                        <div id="globalStats" class="card shadow">
+                            <div class="card-header">
+                                <h5 class="card-title">🌎 Global Stats</h5>
+                                <small>
+                                    <p><span>Wear 😷 stop the spread!</span></p>
+                                </small>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-md-12 col-sm-6">
+                                  <div class="card-body">
+                                  <form>
+                                    <div class="form-group row border-bottom">
+                                        <label for="newConfirmed" class="col-sm-4 col-form-label">
+                                            <span class="badge badge-primary">New</span> 
+                                            Confirmed
+                                        </label>
+                                        <div class="col-sm-8 ">
+                                          <input type="text" readonly class=" text-center form-control-plaintext" id="newConfirmed" >
+                                        </div>
+                                      </div>
+                                      <div class="form-group row border-bottom">
+                                        <label for="totalConfirmed" class="col-sm-4 col-form-label">Total Confirmed</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly class=" text-center form-control-plaintext" id="totalConfirmed">
+                                        </div>
+                                      </div>
+                                      <div class="form-group row border-bottom">
+                                        <label for="newDeaths" class="col-sm-4 col-form-label"><span class="badge badge-primary">New</span> Deaths</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly class="text-center form-control-plaintext" id="newDeaths" >
+                                        </div>
+                                      </div>
+                                      <div class="form-group row border-bottom">
+                                        <label for="totalDeaths" class="col-sm-4 col-form-label">Total Deaths</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly class="text-center form-control-plaintext" id="totalDeaths" >
+                                        </div>
+                                      </div>
+                                      <div class="form-group row border-bottom">
+                                        <label for="newRecovered" class="col-sm-4 col-form-label"><span class="badge badge-primary">New</span> Recovered</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly class="text-center form-control-plaintext" id="newRecovered" >
+                                        </div>
+                                      </div>
+                                      <div class="form-group row mb-0">
+                                        <label for="totalRecovered" class="col-sm-4 col-form-label">Total Recovered</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" readonly class="text-center form-control-plaintext" id="totalRecovered" >
+                                        </div>
+                                      </div>
+                                    </form>
+                                </div>
+                            
+                                </div>
+                              </div>
                         </div>
-                        <div class="col-md-8">
-                          <div class="card-body">
-                            <h5 class="card-title">🌎 Global Stats</h5>
-                            <table class="table table-striped mb-5">
-                                <thead>
-                                    <tr>
-                                        <th>New Confirmed</th>
-                                        <th>Total Confirmed</th>
-                                        <th>New Deaths</th>
-                                        <th>Total Deaths</th>
-                                        <th>New Recovered</th>
-                                        <th>Total Recovered</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td id="newConfirmed"></td>
-                                        <td id="totalConfirmed"></td>
-                                        <td id="newDeaths"></td>
-                                        <td id="totalDeaths"></td>
-                                        <td id="newRecovered"></td>
-                                        <td id="totalRecovered"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    
+                    </div>
+
                 </div>
+                
                 <div id="countryWise" class="card card-body shadow mt-3">
                     <h4 class="text-monospace">Country wise data</h4>
                     <div>

@@ -1,3 +1,6 @@
 th{
     cursor: pointer;
 }
+input{
+    font-weight:bold;
+}
