@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code With Anil</title>
+    <script src="https://kit.fontawesome.com/616f0b79b4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -110,13 +111,30 @@
                         <thead class="bg-light">
                             <tr>
                                 <th>Country</th>
-                                <th>New Confirmed</th>
-                                <th>Total Confirmed</th>
-                                <th>New Deaths</th>
-                                <th>Total Deaths</th>
-                                <th>New Recovered</th>
-                                <th>Total Recovered</th>
-                                <th>Recovery Rate</th>
+                                <th>
+                                    <i class="fas fa-sort" onclick="refreshCountryData('NewConfirmed','desc')"></i>New Confirmed
+                                </th>
+                                <th>
+                                    <i class="fas fa-sort" onclick="refreshCountryData('TotalConfirmed','desc')"></i>
+                                    Total Confirmed
+                                </th>
+                                <th>
+                                    <i class="fas fa-sort" onclick="refreshCountryData('NewDeaths','desc')"></i>
+                                    New Deaths
+                                </th>
+                                <th>
+                                    <i class="fas fa-sort" onclick="refreshCountryData('TotalDeaths','desc')"></i>
+                                    Total Deaths
+                                </th>
+                                <th>
+                                    <i class="fas fa-sort" onclick="refreshCountryData('NewRecovered','desc')"></i>New Recovered
+                                </th>
+                                <th>
+                                    <i class="fas fa-sort" onclick="refreshCountryData('TotalRecovered','desc')"></i>Total Recovered
+                                </th>
+                                <th>Recovery Rate
+                                    <!-- <i class="fas fa-sort" onclick="refreshCountryData('NewConfirmed','desc')"></i> -->
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="countryWiseData">

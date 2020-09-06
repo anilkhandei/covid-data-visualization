@@ -1,3 +1,6 @@
+let countryData;
+let currentSortOrder;
+let currentSortBy;
 document.addEventListener("DOMContentLoaded", async () => {
   const rd = await getData("https://api.covid19api.com/summary");
 
@@ -6,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   //retrieve the data
   let dataDate = new Date(rd.Date);
   let globalData = rd.Global;
-  let countryData = rd.Countries;
+  countryData = rd.Countries;
 
   //format the data
 
@@ -33,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   ul.appendChild(createListItem(msgCountry));
   msg_1.append(ul);
 
-  refreshCountryData(countryData, "NewConfirmed");
+  refreshCountryData("NewConfirmed",'asc');
   addEvents(countryData);
 });
 function displayGlobalStats(globalData){
@@ -50,15 +53,43 @@ function displayGlobalStats(globalData){
   const totalRecovered = document.querySelector("#totalRecovered");
   totalRecovered.value =formatNum( globalData.TotalRecovered);
 }
-function refreshCountryData(countryData, sortBy) {
+function refreshCountryData(sortBy,sortOrder) {
   let sortedCountryData = countryData.sort((f) => sortBy);
-  let orderByTotalConfirmed = sortedCountryData.sort((a, b) => {
-    if (a[sortBy] < b[sortBy]) {
-      return 1;
-    } else {
-      return 0;
+  let toggleSortOrder=()=>{
+      if(currentSortBy===sortBy){
+        if(currentSortOrder==='asc'){
+            return 'desc';
+        }
+        else{
+            return 'asc';
+        }
+      }
+      else {
+          return 'asc';
+      }
+      
+  }
+  sortOrder=toggleSortOrder();
+  console.log(sortOrder);
+  let orderByFunc=(a,b)=>{
+    switch(sortOrder){
+        case 'asc':
+            if (a[sortBy] > b[sortBy]) {
+                return 1;
+              } else {
+                return 0;
+              }
+        break;
+        case 'desc':
+            if (a[sortBy] < b[sortBy]) {
+                return 1;
+              } else {
+                return 0;
+              }
+        break;
     }
-  });
+  }
+  let orderByTotalConfirmed = sortedCountryData.sort((a,b)=>orderByFunc(a,b));
   const countryWiseData = document.querySelector("#countryWiseData");
   countryWiseData.innerHTML = "";
   orderByTotalConfirmed.forEach((c) => {
@@ -73,6 +104,8 @@ function refreshCountryData(countryData, sortBy) {
     tr.appendChild(createTD( Math.round((c.TotalRecovered/c.TotalConfirmed)*100)));
     countryWiseData.appendChild(tr);
   });
+  currentSortOrder=sortOrder;
+  currentSortBy=sortBy;
 }
 
 function addEvents(countryData){
@@ -84,7 +117,7 @@ function addEvents(countryData){
     if (tag === "TH") {
       switch (textContent) {
         case "New Confirmed":
-          refreshCountryData(countryData, "NewConfirmed");
+          refreshCountryData("NewConfirmed");
           break;
         case "Total Confirmed":
           refreshCountryData(countryData, "TotalConfirmed");
