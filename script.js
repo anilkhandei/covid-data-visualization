@@ -15,24 +15,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   dateSpan.innerText = dataDate.toLocaleDateString();
 
   //global stats
-  const newConfirmed = document.querySelector("#newConfirmed");
-  newConfirmed.innerText = globalData.NewConfirmed;
-  const totalConfirmed = document.querySelector("#totalConfirmed");
-  totalConfirmed.innerText = globalData.TotalConfirmed;
-  const newDeaths = document.querySelector("#newDeaths");
-  newDeaths.innerText = globalData.NewDeaths;
-  const totalDeaths = document.querySelector("#totalDeaths");
-  totalDeaths.innerText = globalData.TotalDeaths;
-  const newRecovered = document.querySelector("#newRecovered");
-  newRecovered.innerText = globalData.NewRecovered;
-  const totalRecovered = document.querySelector("#totalRecovered");
-  totalRecovered.innerText = globalData.TotalRecovered;
+  displayGlobalStats(globalData);
 
   //country wise data
 
   const countryCount = countryData.length;
   const msg_1 = document.querySelector("#msg_1");
   const ul = document.createElement("ul");
+  ul.classList='list-group mb-5 mt-2';
   let msgCountry = `Viewing data for <span class='badge badge-secondary'>${countryCount}</span> countries.`;
 
   ul.appendChild(createListItem(msgCountry));
@@ -77,6 +67,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 });
+function displayGlobalStats(globalData){
+  const newConfirmed = document.querySelector("#newConfirmed");
+  newConfirmed.innerText = globalData.NewConfirmed;
+  const totalConfirmed = document.querySelector("#totalConfirmed");
+  totalConfirmed.innerText = globalData.TotalConfirmed;
+  const newDeaths = document.querySelector("#newDeaths");
+  newDeaths.innerText = globalData.NewDeaths;
+  const totalDeaths = document.querySelector("#totalDeaths");
+  totalDeaths.innerText = globalData.TotalDeaths;
+  const newRecovered = document.querySelector("#newRecovered");
+  newRecovered.innerText = globalData.NewRecovered;
+  const totalRecovered = document.querySelector("#totalRecovered");
+  totalRecovered.innerText = globalData.TotalRecovered;
+}
 function refreshCountryData(countryData, sortBy) {
   let sortedCountryData = countryData.sort((f) => sortBy);
   let orderByTotalConfirmed = sortedCountryData.sort((a, b) => {
@@ -103,6 +107,7 @@ function refreshCountryData(countryData, sortBy) {
 
 function createListItem(text) {
   const li = document.createElement("li");
+  li.className='list-group-item';
   li.innerHTML = text;
   return li;
 }
