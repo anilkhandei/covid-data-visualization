@@ -1,6 +1,8 @@
 let countryData;
 let currentSortOrder;
 let currentSortBy;
+let currentPageLow;
+let currentPageHigh;
 document.addEventListener("DOMContentLoaded", async () => {
   const rd = await getData("https://api.covid19api.com/summary");
 
@@ -35,9 +37,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   msgCountry = `<span class='badge badge-danger'>${countriesAffectedToday}</span> countries reported positive covid case counts today.`;
   ul.appendChild(createListItem(msgCountry));
   msg_1.append(ul);
-
-  refreshCountryData("NewConfirmed",'asc');
-  addEvents(countryData);
+  currentPageLow=0;
+  currentPageHigh=20;
+  currentSortBy='NewConfirmed';
+  currentSortOrder='desc';
+  refreshCountryData("NewConfirmed");
+  
 });
 function displayGlobalStats(globalData){
   const newConfirmed = document.querySelector("#newConfirmed");
@@ -54,7 +59,10 @@ function displayGlobalStats(globalData){
   totalRecovered.value =formatNum( globalData.TotalRecovered);
 }
 function refreshCountryData(sortBy,sortOrder) {
-  let sortedCountryData = countryData.sort((f) => sortBy);
+    let min,max;
+    min=currentPageLow;
+    max=currentPageHigh;
+  let sortedCountryData;
   let toggleSortOrder=()=>{
       if(currentSortBy===sortBy){
         if(currentSortOrder==='asc'){
@@ -65,7 +73,7 @@ function refreshCountryData(sortBy,sortOrder) {
         }
       }
       else {
-          return 'asc';
+          return 'descc';
       }
       
   }
@@ -89,25 +97,51 @@ function refreshCountryData(sortBy,sortOrder) {
         break;
     }
   }
-  let orderByTotalConfirmed = sortedCountryData.sort((a,b)=>orderByFunc(a,b));
+  sortedCountryData = countryData.sort((a,b)=>orderByFunc(a,b));
   const countryWiseData = document.querySelector("#countryWiseData");
   countryWiseData.innerHTML = "";
-  orderByTotalConfirmed.forEach((c) => {
-    const tr = document.createElement("tr");
-    tr.appendChild(createTD(formatNum(c.Country)));
-    tr.appendChild(createTD(formatNum(c.NewConfirmed)));
-    tr.appendChild(createTD(formatNum(c.TotalConfirmed)));
-    tr.appendChild(createTD(formatNum(c.NewDeaths)));
-    tr.appendChild(createTD(formatNum(c.TotalDeaths)));
-    tr.appendChild(createTD(formatNum(c.NewRecovered)));
-    tr.appendChild(createTD(formatNum(c.TotalRecovered)));
-    tr.appendChild(createTD( Math.round((c.TotalRecovered/c.TotalConfirmed)*100)));
-    countryWiseData.appendChild(tr);
+  sortedCountryData.forEach((c,i) => {
+      if(i>=min &&i<=max){
+        const tr = document.createElement("tr");
+        tr.appendChild(createTD(formatNum(i)));
+        tr.appendChild(createTD(formatNum(c.Country)));
+        tr.appendChild(createTD(formatNum(c.NewConfirmed)));
+        tr.appendChild(createTD(formatNum(c.TotalConfirmed)));
+        tr.appendChild(createTD(formatNum(c.NewDeaths)));
+        tr.appendChild(createTD(formatNum(c.TotalDeaths)));
+        tr.appendChild(createTD(formatNum(c.NewRecovered)));
+        tr.appendChild(createTD(formatNum(c.TotalRecovered)));
+        tr.appendChild(createTD( Math.round((c.TotalRecovered/c.TotalConfirmed)*100)));
+        countryWiseData.appendChild(tr);
+      }
+    
   });
   currentSortOrder=sortOrder;
   currentSortBy=sortBy;
+  const msg=`<span class='text-muted'><i>Viewing ${currentPageLow} to ${currentPageHigh} of ${countryData.length} countries</i></span>`;
+  //const msg_node=document.createTextNode(msg);
+  pagination_msg.innerHTML=msg;
 }
 
+function displayNextCountries(){
+    const pagination_msg=document.querySelector('#pagination_msg');
+    if(currentPageHigh==countryData.length){
+        return;
+    }
+    currentPageLow=currentPageHigh;
+    currentPageHigh+=20;
+    refreshCountryData(currentSortBy,currentSortOrder);
+}
+function displayPrevCountries(){
+    if(currentPageLow==0){
+        return;
+    }
+    currentPageLow-=20;
+    currentPageHigh-=20;
+    refreshCountryData(currentSortBy,currentSortOrder);
+    
+    
+}
 function addEvents(countryData){
     const tbl_countryWise = document.querySelector("#countryWise");
 
