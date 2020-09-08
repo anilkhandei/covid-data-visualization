@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code With Anil</title>
+    <title>World Covid Stats- Courtesy: Code With Anil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/616f0b79b4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <script src='script.js'></script>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -28,9 +29,9 @@
     <meta name="theme-color" content="#ffffff">
 
 </head>
-
-<body>
-    <div id="root" style="min-width: 900px;">
+<!--  -->
+<body style="min-width: 1050px;">
+    <div id="root">
         <div class="card">
             <div class="card-header">
                 <h3>World Covid Status</h1>
@@ -102,7 +103,7 @@
 
                 </div>
                 
-                <div id="countryWise" class="card  shadow mt-3">
+                <div id="countryWise" class="card  shadow mt-3" style="min-width: 1020px;">
                     <div class="card-header">
                     <h4 class="text-monospace"><i class="fas fa-globe text-secondary"></i> Country Stats</h4>
                 </div>
@@ -113,41 +114,66 @@
                                 <div id="msg_1"></div>
                             </div>
                         </div>
-                        <p class="float-right">
-                            <span>
-                                <small id="pagination_msg">
-                                </small>
-                            </span>
-                            <i class="fas fa-arrow-circle-left" onclick="displayPrevCountries()" id="country_prev"></i>
-                            <i class="fas fa-arrow-circle-right" onclick="displayNextCountries()" id="country_next"></i>
-                        </p>
-                    <table id="tbl_countryWise" class="table table-striped">
+                     <div class="row">
+
+                       <div class="col-12">
+                    <table id="tbl_countryWise" class="table table-borderless table-hover">
                         <thead class="bg-light">
                             <tr>
-                                <th>#</th>
-                                <th>Country</th>
-                                <th>
-                                    <i class="fas fa-sort" onclick="refreshCountryData('NewConfirmed','desc')"></i>New Confirmed
+                                <th class="text-center">
+                                   <p class="p-2 float-left" style="display: inline-block;">
+                                        <button class="btn btn-light rounded-circle" onclick="displayPrevCountries()" id="country_prev">
+                                        <i class="fas fa-arrow-circle-left"></i>
+                                        </button>
+                                        <button class="btn btn-light rounded-circle" onclick="displayNextCountries()" id="country_next">
+                                        <i class="fas fa-arrow-circle-right" ></i>
+                                        </button>
+                                    </p>
+                                    <span class="font-weight-bold text-muted">Country</span>
                                 </th>
                                 <th>
-                                    <i class="fas fa-sort" onclick="refreshCountryData('TotalConfirmed','desc')"></i>
-                                    Total Confirmed
+                                    
+                                    <button class="btn btn-light font-weight-bold text-muted" onclick="refreshCountryData('NewConfirmed','desc')">
+                                        <i class="fas fa-sort" ></i>
+                                        New Confirmed
+                                    </button>
                                 </th>
                                 <th>
-                                    <i class="fas fa-sort" onclick="refreshCountryData('NewDeaths','desc')"></i>
-                                    New Deaths
+                                    <button class="btn btn-light font-weight-bold text-muted" onclick="refreshCountryData('TotalConfirmed','desc')">
+                                        <i class="fas fa-sort" ></i>
+                                        Total Confirmed
+                                    </button>
                                 </th>
                                 <th>
-                                    <i class="fas fa-sort" onclick="refreshCountryData('TotalDeaths','desc')"></i>
-                                    Total Deaths
+                                    <button class="btn btn-light font-weight-bold text-muted" onclick="refreshCountryData('NewDeaths','desc')">
+                                        <i class="fas fa-sort" ></i>
+                                        New Deaths
+                                    </button>
+                                   
                                 </th>
                                 <th>
-                                    <i class="fas fa-sort" onclick="refreshCountryData('NewRecovered','desc')"></i>New Recovered
+                                    <button class="btn btn-light font-weight-bold text-muted" onclick="refreshCountryData('TotalDeaths','desc')">
+                                        <i class="fas fa-sort" ></i>
+                                        Total Deaths
+                                    </button>
+                    
                                 </th>
                                 <th>
-                                    <i class="fas fa-sort" onclick="refreshCountryData('TotalRecovered','desc')"></i>Total Recovered
+                                    <button class="btn btn-light font-weight-bold text-muted" onclick="refreshCountryData('NewRecovered','desc')">
+                                        <i class="fas fa-sort" ></i>
+                                        New Recovered
+                                    </button>
+                                
                                 </th>
-                                <th>Recovery Rate
+                                <th>
+                                    <button class="btn btn-light font-weight-bold text-muted" onclick="refreshCountryData('TotalRecovered','desc')">
+                                        <i class="fas fa-sort" ></i>
+                                        Total Recovered
+                                    </button>
+                                </th>
+                                <th class="text-center">
+                                    <span class="font-weight-bold text-muted">Recovery Rate</span>
+                                    
                                     <!-- <i class="fas fa-sort" onclick="refreshCountryData('NewConfirmed','desc')"></i> -->
                                 </th>
                             </tr>
@@ -158,9 +184,15 @@
                     </table>
                 </div>
                 </div>
+                    <span>
+                        <small id="pagination_msg">
+                        </small>
+                    </span>
+                </div>
+                </div>
             </div>
 
-            <div class="card-footer">
+            <div class="card-footer" >
                 <p class="text-monospace text-muted" id="dataDate"></p>
             </div>
         </div>

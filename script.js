@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const countryCount = countryData.length;
   const msg_1 = document.querySelector("#msg_1");
   const ul = document.createElement("ul");
-  ul.classList='list-group mb-5 mt-2';
+  ul.classList='list-group mb-2 mt-2';
   let msgCountry = `Viewing data for <span class='badge badge-secondary'>${countryCount}</span> countries.`;
 
-  ul.appendChild(createListItem(msgCountry));
+  //ul.appendChild(createListItem(msgCountry));
 
   const countriesAffectedToday = countryData.filter((f) => f.NewConfirmed > 0)
     .length;
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   currentPageLow=0;
   currentPageHigh=20;
   currentSortBy='NewConfirmed';
-  currentSortOrder='desc';
+  currentSortOrder='asc';
   refreshCountryData("NewConfirmed");
   
 });
@@ -73,12 +73,13 @@ function refreshCountryData(sortBy,sortOrder) {
         }
       }
       else {
-          return 'descc';
+          return 'desc';
       }
       
   }
+  
   sortOrder=toggleSortOrder();
-  console.log(sortOrder);
+  
   let orderByFunc=(a,b)=>{
     switch(sortOrder){
         case 'asc':
@@ -103,7 +104,7 @@ function refreshCountryData(sortBy,sortOrder) {
   sortedCountryData.forEach((c,i) => {
       if(i>=min &&i<=max){
         const tr = document.createElement("tr");
-        tr.appendChild(createTD(formatNum(i)));
+        //tr.appendChild(createTD(formatNum(i)));
         tr.appendChild(createTD(formatNum(c.Country)));
         tr.appendChild(createTD(formatNum(c.NewConfirmed)));
         tr.appendChild(createTD(formatNum(c.TotalConfirmed)));
@@ -118,13 +119,14 @@ function refreshCountryData(sortBy,sortOrder) {
   });
   currentSortOrder=sortOrder;
   currentSortBy=sortBy;
-  const msg=`<span class='text-muted'><i>Viewing ${currentPageLow} to ${currentPageHigh} of ${countryData.length} countries</i></span>`;
+  const pagination_msg=document.querySelector('#pagination_msg');
+  const msg=`<span class='text-muted'><i>Viewing ${currentPageLow} to ${currentPageHigh} of ${sortedCountryData.length} countries</i></span>`;
   //const msg_node=document.createTextNode(msg);
   pagination_msg.innerHTML=msg;
 }
 
 function displayNextCountries(){
-    const pagination_msg=document.querySelector('#pagination_msg');
+    
     if(currentPageHigh==countryData.length){
         return;
     }
@@ -138,9 +140,7 @@ function displayPrevCountries(){
     }
     currentPageLow-=20;
     currentPageHigh-=20;
-    refreshCountryData(currentSortBy,currentSortOrder);
-    
-    
+    refreshCountryData(currentSortBy,currentSortOrder);    
 }
 function addEvents(countryData){
     const tbl_countryWise = document.querySelector("#countryWise");
@@ -186,6 +186,7 @@ function createListItem(text) {
 function createTD(text) {
   const td = document.createElement("td");
   const textNode = document.createTextNode(text);
+  td.style.textAlign='center';
   td.appendChild(textNode);
   return td;
 }
