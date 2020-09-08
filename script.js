@@ -85,6 +85,8 @@ function refreshCountryData(sortBy,sortOrder) {
         case 'asc':
             if (a[sortBy] > b[sortBy]) {
                 return 1;
+              } else if(a[sortBy] == b[sortBy]){
+                return 0;
               } else {
                 return -1;
               }
@@ -92,8 +94,10 @@ function refreshCountryData(sortBy,sortOrder) {
         case 'desc':
             if (a[sortBy] < b[sortBy]) {
                 return 1;
-              } else {
+              } else if(a[sortBy] == b[sortBy]){
                 return 0;
+              } else {
+                return -1;
               }
         break;
     }
