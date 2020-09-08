@@ -86,7 +86,7 @@ function refreshCountryData(sortBy,sortOrder) {
             if (a[sortBy] > b[sortBy]) {
                 return 1;
               } else {
-                return 0;
+                return -1;
               }
         break;
         case 'desc':
